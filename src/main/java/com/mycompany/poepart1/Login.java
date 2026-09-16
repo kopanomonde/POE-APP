@@ -12,16 +12,18 @@ public class Login {
     
  public String firstName;
     public String lastName;
+    public String cellNumber;
     public String username;
     public String password;
-      public String cellNumber;
       
-     public Login(String firstName , String  lastName, String username,String password,String  cellNumber ){
+      
+     public Login(String firstName , String  lastName,String  cellNumber, String username,String password ){
         this.firstName=firstName;
         this. lastName= lastName;
+       this.cellNumber= cellNumber;
       this.username=username;  
         this.password=password; 
-        this.cellNumber= cellNumber;
+
                 
 
     }
@@ -31,7 +33,7 @@ public class Login {
              return false;
              
          }
-         return username.contains("_")&& username.length()<5;
+         return username.contains("_")&& username.length()<=5;
      }
   public boolean checkPassword() {
     if (password == null || password.length() < 8) {

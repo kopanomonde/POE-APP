@@ -28,7 +28,7 @@ System.out.println("Please enter your First name: ");
 
         System.out.println("Please enter your password: ");
         String password = scanner.nextLine();
-        Login user = new Login(firstName, lastName, cellNumber, username, password);
+        Login user= new Login(firstName, lastName, cellNumber, username, password);
         if (user.checkUserName()) {
             System.out.println("Username successfully captured.");
         } else {
