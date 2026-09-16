@@ -14,7 +14,7 @@ public class PoePart1 {
 
     public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-System.out.println("Please enter your name: ");
+System.out.println("Please enter your First name: ");
         String firstName = scanner.nextLine();
 
         System.out.println("Please enter your last name: ");
