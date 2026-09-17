@@ -28,7 +28,7 @@ public class Login {
 
     }
      public boolean checkUserName(){
-         // if he is no input the method must return flase
+         // if the user  is no input the method must return flase
          if( username==null){
              return false;
              
@@ -47,14 +47,14 @@ public class Login {
     return hasCapital && hasDigit && hasSpecial;
 }
      public boolean checkCellNumber(){
-          // if the is no input the method must return flase
+          // if the user is no input the method must return flase
          if(cellNumber==null){
              return false;
             
          }
          String regex = "^\\+\\d{1,3}\\d{1,10}$";
        return java.util.regex.Pattern.matches(regex, cellNumber);
-      //4
+   
      }
      public String registerUser(){
          if(!checkUserName()){
@@ -69,13 +69,13 @@ public class Login {
 
         return "Username successfully captured.\nPassword successfully captured.\nCell number successfully added.";
     }
-       // 5. Login User
+       // Login User
     public boolean loginUser(String enteredUsername, String enteredPassword) {
         return enteredUsername != null && enteredPassword != null &&
                enteredUsername.equals(username) &&
                enteredPassword.equals(password);
     }
-    // 6. Return Login Status
+    //  Return Login Status
     public String returnLoginStatus(boolean isLoggedIn) {
         if (isLoggedIn) {
             return "Welcome " + this.firstName + " " + this.lastName + " it is great to see you again.";

@@ -54,7 +54,7 @@ System.out.println("Please enter your First name: ");
 
             boolean isLoggedIn = user.loginUser(enteredUsername, enteredPassword);
             
-            // Output Login Status using System.out.println
+            
             if (isLoggedIn) {
                 System.out.println("Welcome " + user.firstName + ", " + user.lastName + " it is great to see you again.");
             } else {
