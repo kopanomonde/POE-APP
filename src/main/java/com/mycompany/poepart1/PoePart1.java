@@ -14,6 +14,7 @@ public class PoePart1 {
 
     public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
+    //getting account creation info from the user 
 System.out.println("Please enter your First name: ");
         String firstName = scanner.nextLine();
 
@@ -28,6 +29,7 @@ System.out.println("Please enter your First name: ");
 
         System.out.println("Please enter your password: ");
         String password = scanner.nextLine();
+        // creating a new account from info given by the user 
         Login user= new Login(firstName, lastName, cellNumber, username, password);
         if (user.checkUserName()) {
             System.out.println("Username successfully captured.");
@@ -61,8 +63,6 @@ System.out.println("Please enter your First name: ");
                 System.out.println("Username or password incorrect, please try again.");
             }
         }
-
-        scanner.close();
     }
 }
       

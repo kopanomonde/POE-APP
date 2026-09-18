@@ -9,14 +9,14 @@ package com.mycompany.poepart1;
  * @author Student
  */
 public class Login {
-    
+      // declaring my atributes 
  public String firstName;
     public String lastName;
     public String cellNumber;
     public String username;
     public String password;
       
-      
+      //used parametors to construct 
      public Login(String firstName , String  lastName,String  cellNumber, String username,String password ){
         this.firstName=firstName;
         this. lastName= lastName;
@@ -27,6 +27,7 @@ public class Login {
                 
 
     }
+     ///Checking the username if meets the requirements 
      public boolean checkUserName(){
          // if the user  is no input the method must return flase
          if( username==null){
@@ -35,6 +36,7 @@ public class Login {
          }
          return username.contains("_")&& username.length()<=5;
      }
+      ///Checking the password   if it meets the requirements 
   public boolean checkPassword() {
     if (password == null || password.length() < 8) {
         return false;
@@ -46,7 +48,8 @@ public class Login {
 
     return hasCapital && hasDigit && hasSpecial;
 }
-     public boolean checkCellNumber(){
+    ///Checking the cell phone number  if it meets the requirements 
+  public boolean checkCellNumber(){
           // if the user is no input the method must return flase
          if(cellNumber==null){
              return false;
