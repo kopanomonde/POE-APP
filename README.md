@@ -6,3 +6,4 @@ Maru keys, 2023. Java program to validate South African phone numbers using Rege
 Max O'Didily, 2017. Java Validation: Validating a Password. [video online] Available at: https://www.youtube.com/watch?v=kN8mqSvNFa4 [Accessed 14 September 2026].
 Max O'Didily, 2022. How to Check If Your Password Contains Only Digits Using Java. [video online] Available at: https://www.youtube.com/watch?v=1trjOW3-8-c [Accessed 14 September 2026].
 Oracle, 2023. Pattern (Java Platform SE 17). [online] Available at: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html [Accessed 14September 2026].
+https://youtu.be/cNz46KX4mEo?si=Y5uXuvLBGVFv017b
