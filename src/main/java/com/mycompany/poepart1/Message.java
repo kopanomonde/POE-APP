@@ -98,4 +98,5 @@ public class Message {
     public static int returnTotalMessages() {
         return totalMessagesSent;
     }
+    
 }
