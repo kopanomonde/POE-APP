@@ -33,7 +33,7 @@ System.out.println("Please enter your First name: ");
         Login user= new Login(firstName, lastName, cellNumber, username, password);
         if (user.checkUserName()) {
             System.out.println("Username successfully captured.");
-        } else {
+        } else {,j,  
             System.out.println("Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.");
         }
         if (user.checkPassword()) {
