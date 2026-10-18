@@ -46,4 +46,56 @@ public class Message {
    public boolean checkMessageID(){
        return  messageID ! = null &&  messageID.length()<=10;
    }
+     public String checkRecipientCell() {
+        String regex = "^\\+\\d{1,3}\\d{1,10}$";
+        if (recipientCell != null && Pattern.matches(regex, recipientCell)) {
+            return "Cell phone number successfully captured.";
+        }
+        return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
+    }
+      public String checkMessageLength() {
+        int length = messageText.length();
+        if (length <= 250) {
+            return "Message ready to send.";
+        }
+        return "Message exceeds 250 characters by " + (length - 250) + "; please reduce the size.";
+    }
+       public String createMessageHash() {
+        String[] words = messageText.trim().split("\\s+");
+        String first = words[0].replaceAll("[^A-Za-z0-9]", "");
+        String last = words[words.length - 1].replaceAll("[^A-Za-z0-9]", "");
+        String prefix = messageID.substring(0, 2);
+        return (prefix + ":" + messageNumber + ":" + first + last).toUpperCase();
+    }
+          public String sentMessage(int choice) {
+        switch (choice) {
+            case 1:
+                sentMessages.add(this);
+                totalMessagesSent++;
+                return "Message successfully sent.";
+            case 2:
+                return "Press 0 to delete the message.";
+            case 3:
+                storeMessage();
+                return "Message successfully stored.";
+            default:
+                return "Invalid option.";
+        }
+    }
+ 
+    // all messages sent while the program is running
+    public static String printMessages() {
+        StringBuilder sb = new StringBuilder();
+        for (Message m : sentMessages) {
+            sb.append("Message ID: ").append(m.messageID).append("\n");
+            sb.append("Message Hash: ").append(m.messageHash).append("\n");
+            sb.append("Recipient: ").append(m.recipientCell).append("\n");
+            sb.append("Message: ").append(m.messageText).append("\n\n");
+        }
+        return sb.toString();
+    }
+ 
+    public static int returnTotalMessages() {
+        return totalMessagesSent;
+    }
 }
