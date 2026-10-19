@@ -114,7 +114,7 @@ public String sentMessage() {
         
     }
  
-    // all messages sent while the program is running
+    
     public static String printMessages() {
         StringBuilder sb = new StringBuilder();
         for (Message m : sentMessages) {
