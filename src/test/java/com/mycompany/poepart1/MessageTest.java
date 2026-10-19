@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
  
 public class MessageTest {
  
-    // test data from the brief
+   
     Message message1;
     Message message2;
  
