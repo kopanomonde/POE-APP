@@ -110,7 +110,7 @@ if (isLoggedIn) {
             Message msg = new Message(entered, recipient, text);
             System.out.println(msg.messageIDStatus());
  
-            // the user chooses: send, disregard or store
+            // the user chooses to send, disregard or store
             String result = msg.sentMessage();
             System.out.println(result);
  
