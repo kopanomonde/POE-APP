@@ -60,7 +60,7 @@ System.out.println(user.returnLoginStatus(isLoggedIn));
  
 // Messages can only be sent if the user logged in successfully
 if (isLoggedIn) {
-    Message.input = scanner; // share the same scanner
+    Message.input = scanner; 
     System.out.println("Welcome to QuickChat.");
  
     System.out.print("How many messages do you wish to enter? ");
@@ -80,7 +80,7 @@ if (isLoggedIn) {
                 continue;
             }
  
-            // recipient
+            // the  recipient informantion 
             String recipient;
             while (true) {
                 System.out.print("Enter recipient cell number (e.g. +27718693002): ");
@@ -92,7 +92,7 @@ if (isLoggedIn) {
                 }
             }
  
-            // message text
+            // the message text that the sender wants to send 
             String text;
             while (true) {
                 System.out.print("Enter your message: ");
