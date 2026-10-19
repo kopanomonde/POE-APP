@@ -8,7 +8,7 @@ package com.mycompany.poepart1;
  *
  * @author Student
  */
-
+import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
  import java.util.ArrayList;
@@ -24,8 +24,9 @@ public class Message {
     public String messageHash;
     
    public static int totalMessagesSent=0;
-   public static ArrayList<Message>sentMessage =new ArrayList<>();
-   public static ArrayList<Message>storedMessage =new ArrayList<>();
+   public static ArrayList<Message> sentMessages = new ArrayList<>();
+public static ArrayList<Message> storedMessages = new ArrayList<>();
+public static Scanner input = new Scanner(System.in);
    
       //used parametors to construct 
    public Message(int messageNumber,String recipientCell,String messageText){
@@ -44,7 +45,7 @@ public class Message {
        return sb.toString();
    }
    public boolean checkMessageID(){
-       return  messageID ! = null &&  messageID.length()<=10;
+       return  messageID != null &&  messageID.length()<=10;
    }
      public String checkRecipientCell() {
         String regex = "^\\+\\d{1,3}\\d{1,10}$";
@@ -67,6 +68,35 @@ public class Message {
         String prefix = messageID.substring(0, 2);
         return (prefix + ":" + messageNumber + ":" + first + last).toUpperCase();
     }
+       public String messageIDStatus() {
+    return "Message ID generated: " + messageID;
+}
+
+public String sentMessage() {
+    int choice = 0;
+    while (choice < 1 || choice > 3) {
+        System.out.println("Choose an option:");
+        System.out.println("1) Send Message");
+        System.out.println("2) Disregard Message");
+        System.out.println("3) Store Message to send later");
+        try {
+            choice = Integer.parseInt(input.nextLine().trim());
+        } catch (NumberFormatException e) {
+            choice = 0;
+        }
+    }
+
+    String result = sentMessage(choice);
+
+    if (choice == 2) {
+        System.out.println(result);
+        String answer = input.nextLine().trim();
+        if (answer.equals("0")) {
+            return "Message deleted.";
+        }
+    }
+    return result;
+}
           public String sentMessage(int choice) {
         switch (choice) {
             case 1:
@@ -81,6 +111,7 @@ public class Message {
             default:
                 return "Invalid option.";
         }
+        
     }
  
     // all messages sent while the program is running
@@ -98,5 +129,27 @@ public class Message {
     public static int returnTotalMessages() {
         return totalMessagesSent;
     }
-    
+       public void storeMessage() {
+        storedMessages.add(this);
+        StringBuilder json = new StringBuilder("[\n");
+        for (int count = 0; count < storedMessages.size(); count++) {
+            Message m = storedMessages.get(count);
+            json.append("  {\n");
+            json.append("    \"messageID\": \"").append(escape(m.messageID)).append("\",\n");
+            json.append("    \"messageHash\": \"").append(escape(m.messageHash)).append("\",\n");
+            json.append("    \"recipient\": \"").append(escape(m.recipientCell)).append("\",\n");
+            json.append("    \"message\": \"").append(escape(m.messageText)).append("\"\n");
+            json.append("  }").append(count < storedMessages.size() - 1 ? "," : "").append("\n");
+        }
+        json.append("]");
+        try (FileWriter writer = new FileWriter("messages.json")) {
+            writer.write(json.toString());
+        } catch (IOException e) {
+            System.out.println("Could not save the message: " + e.getMessage());
+        }
+    }
+ 
+    private static String escape(String text) {
+        return text.replace("\\", "\\\\").replace("\"", "\\\"");
+    } 
 }
