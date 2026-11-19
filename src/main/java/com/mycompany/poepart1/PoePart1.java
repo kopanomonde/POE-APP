@@ -54,96 +54,83 @@ System.out.println("Please enter your First name: ");
             System.out.print("Please enter password to login: ");
             String enteredPassword = scanner.nextLine();
 
-            boolean isLoggedIn = user.loginUser(enteredUsername, enteredPassword);
-             
-System.out.println(user.returnLoginStatus(isLoggedIn));
- 
-// Messages can only be sent if the user logged in successfully
-if (isLoggedIn) {
-    Message.input = scanner; 
-    System.out.println("Welcome to QuickChat.");
- 
-    System.out.print("How many messages do you wish to enter? ");
-    int maxMessages = Integer.parseInt(scanner.nextLine().trim());
-    int entered = 0;
-    boolean running = true;
- 
-    while (running) {
-        System.out.println("\n1) Send Messages");
-        System.out.println("2) Show recently sent messages");
-        System.out.println("3) Quit");
-        String option = scanner.nextLine().trim();
- 
-        if (option.equals("1")) {
-            if (entered >= maxMessages) {
-                System.out.println("You have already entered all " + maxMessages + " messages.");
-                continue;
-            }
- 
-            // the  recipient informantion 
-            String recipient;
-            while (true) {
-                System.out.print("Enter recipient cell number (e.g. +27718693002): ");
-                recipient = scanner.nextLine().trim();
-                String result = new Message(entered, recipient, "x").checkRecipientCell();
-                System.out.println(result);
-                if (result.equals("Cell phone number successfully captured.")) {
-                    break;
-                }
-            }
- 
-            // the message text that the sender wants to send 
-            String text;
-            while (true) {
-                System.out.print("Enter your message: ");
-                text = scanner.nextLine();
-                if (text.trim().isEmpty()) {
-                    System.out.println("Message cannot be empty.");
-                } else if (text.length() > 250) {
-                    System.out.println("Please enter a message of less than 250 characters.");
-                } else {
-                    System.out.println("Message sent");
-                    break;
-                }
-            }
- 
-            Message msg = new Message(entered, recipient, text);
-            System.out.println(msg.messageIDStatus());
- 
-            // the user chooses to send, disregard or store
-            String result = msg.sentMessage();
-            System.out.println(result);
- 
-            if (result.equals("Message successfully sent.")) {
-                System.out.println("Message ID: " + msg.messageID);
-                System.out.println("Message Hash: " + msg.messageHash);
-                System.out.println("Recipient: " + msg.recipientCell);
-                System.out.println("Message: " + msg.messageText);
-            }
-            entered++;
- 
-        } else if (option.equals("2")) {
-            System.out.println("Coming Soon.");
- 
-        } else if (option.equals("3")) {
-            running = false;
- 
-        } else {
-            System.out.println("Please choose 1, 2 or 3.");
+    boolean isLoggedIn = user.loginUser(enteredUsername, enteredPassword);
+    if (isLoggedIn) {
+      System.out.println("Welcome " + user.firstName + ", " + user.lastName + " it is great to see you again.");
+
+     Message.input = scanner;  
+         System.out.println("Welcome to QuickChat.");
+
+       boolean running = true;
+          while (running) {
+           System.out.println("\n1) Send Messages");
+            System.out.println("2) Show recently sent messages");
+           System.out.println("3) Quit");
+            String option = scanner.nextLine().trim();
+          if (option.equals("1")) {
+            System.out.print("How many messages do you wish to enter? ");
+             int maxMessages = Integer.parseInt(scanner.nextLine().trim());
+
+     for (int count = 0; count < maxMessages; count++) {
+       System.out.println("\nMessage " + (count + 1) + " of " + maxMessages);
+
+         // recipient
+          String recipient;
+       while (true) {
+       System.out.print("Enter recipient cell number (e.g. +27718693002): ");
+          recipient = scanner.nextLine().trim();
+         String check = new Message(count, recipient, "x").checkRecipientCell();
+           System.out.println(check);
+             if (check.equals("Cell phone number successfully captured.")) {
+              break;
+           }
         }
+                         
+          String text;
+    while (true) {
+        System.out.print("Enter your message: ");
+         text = scanner.nextLine();
+      if (text.trim().isEmpty()) {
+       System.out.println("Message cannot be empty.");
+        } else if (text.length() > 250) {
+    System.out.println("Please enter a message of less than 250 characters.");
+     } else {
+           break;
+          }
+       }
+
+       Message msg = new Message(count, recipient, text);
+        System.out.println(msg.messageIDStatus());
+
+
+       String result = msg.sentMessage();
+         System.out.println(result);
+
+                            
+      if (result.equals("Message successfully sent.")) {
+             System.out.println("Message ID: " + msg.messageID);
+             System.out.println("Message Hash: " + msg.messageHash);
+             System.out.println("Recipient: " + msg.recipientCell);
+             System.out.println("Message: " + msg.messageText);
+       }
+   }
+
+   } else if (option.equals("2")) {
+          System.out.println("Coming Soon.");
+
+     } else if (option.equals("3")) {
+                   running = false;
+
+       } else {
+        System.out.println("Please choose 1, 2 or 3.");
+     }
     }
- 
-    System.out.println("Total messages sent: " + Message.returnTotalMessages());
-}
- 
-            
-            
-            if (isLoggedIn) {
-                System.out.println("Welcome " + user.firstName + ", " + user.lastName + " it is great to see you again.");
-            } else {
-                System.out.println("Username or password incorrect, please try again.");
+
+     System.out.println("Total messages sent: " + Message.returnTotalMessages());
+
+     } else {
+    System.out.println("Username or password incorrect, please try again.");
             }
         }
     }
 }
-      
