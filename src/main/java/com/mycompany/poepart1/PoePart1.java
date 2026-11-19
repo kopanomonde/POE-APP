@@ -3,7 +3,7 @@
  */
 
 package com.mycompany.poepart1;
-
+import java.util.ArrayList;  
 import java.util.Scanner;
 
 /**
@@ -58,7 +58,9 @@ System.out.println("Please enter your First name: ");
     if (isLoggedIn) {
       System.out.println("Welcome " + user.firstName + ", " + user.lastName + " it is great to see you again.");
 
-     Message.input = scanner;  
+Message.input = scanner;  
+     Message.sender = user.firstName + " " + user.lastName;   // >>> NEW
+     Message.loadStoredMessages();            
          System.out.println("Welcome to QuickChat.");
 
        boolean running = true;
@@ -66,6 +68,7 @@ System.out.println("Please enter your First name: ");
            System.out.println("\n1) Send Messages");
             System.out.println("2) Show recently sent messages");
            System.out.println("3) Quit");
+              System.out.println("4) Stored Messages");  
             String option = scanner.nextLine().trim();
           if (option.equals("1")) {
             System.out.print("How many messages do you wish to enter? ");
@@ -100,7 +103,7 @@ System.out.println("Please enter your First name: ");
        }
 
        Message msg = new Message(count, recipient, text);
-        System.out.println(msg.messageIDStatus());
+      System.out.println(msg.checkMessageID() ? "Message ID generated: " + msg.messageID : "Invalid Message ID.");
 
 
        String result = msg.sentMessage();
@@ -116,13 +119,69 @@ System.out.println("Please enter your First name: ");
    }
 
    } else if (option.equals("2")) {
-          System.out.println("Coming Soon.");
+         String sentReport = Message.printMessages();
+                        System.out.println(sentReport.isEmpty() ? "No messages have been sent yet." : sentReport);
 
      } else if (option.equals("3")) {
-                   running = false;
+      running = false;
+                   
+      } else if (option.equals("4")) {
+      boolean inStored = true;
+      while (inStored) {
+        System.out.println("\n--- Stored Messages ---");
+       System.out.println("a) Display the sender and recipient of all stored messages");
+        System.out.println("b) Display the longest stored message");
+       System.out.println("c) Search for a message ID");
+         System.out.println("d) Search for all messages for a recipient");
+       System.out.println("e) Delete a message using the message hash");
+        System.out.println("f) Display a report of all stored messages");
+       System.out.println("g) Back to the main menu");
+       String sub = scanner.nextLine().trim().toLowerCase();
 
+         if (sub.equals("a")) {
+             System.out.println(Message.displaySenderAndRecipient());
+
+   } else if (sub.equals("b")) {
+      String longest = Message.longestMessage();
+    System.out.println(longest.isEmpty() ? "No stored messages." : "Longest message: " + longest);
+
+} else if (sub.equals("c")) {
+            System.out.print("Enter the message ID: ");
+            String[] found = Message.searchByMessageID(scanner.nextLine().trim());
+            if (found == null) {
+                System.out.println("Message ID not found.");
+            } else {
+                System.out.println("Recipient: " + found[0]);
+                System.out.println("Message: " + found[1]);
+            }
+
+        } else if (sub.equals("d")) {
+            System.out.print("Enter the recipient cell number: ");
+            String[] results = Message.searchByRecipient(scanner.nextLine().trim());
+            if (results.length == 0) {
+                System.out.println("No messages found for that recipient.");
+            } else {
+                for (String line : results) {
+                    System.out.println(line);
+                }
+            }
+
+      } else if (sub.equals("e")) {
+        System.out.print("Enter the message hash: ");
+        System.out.println(Message.deleteByHash(scanner.nextLine().trim()));
+
+       } else if (sub.equals("f")) {
+        System.out.println(Message.storedReport());
+
+     } else if (sub.equals("g")) {
+       inStored = false;
+
+    } else {
+     System.out.println("Please choose a, b, c, d, e, f or g.");
+   }
+  }
        } else {
-        System.out.println("Please choose 1, 2 or 3.");
+        System.out.println("Please choose 1, 2 ,3 or 4.");
      }
     }
 
