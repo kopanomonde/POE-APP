@@ -37,8 +37,8 @@ public class MessageStore {
     public String[] messageHashes = new String[MAX_MESSAGES];
     public int idCount = 0;
 
-    public String jsonFile = "messages.json";   // file the stored messages are written to / read from
-    public String sender = "Developer";         // name shown as the sender
+    public String jsonFile = "messages.json";   
+    public String sender = "Developer";         
 
   
     public boolean recordSent(Message message) {
@@ -87,7 +87,7 @@ public class MessageStore {
         }
     }
 
-    // ---------------- the JSON file ----------------
+    // json file
 
   
     public void saveToJson() {
@@ -108,12 +108,7 @@ public class MessageStore {
         }
     }
 
-    /*
-     * Reads the JSON file back INTO the stored arrays.
-     * Source: Files.readAllBytes from the Oracle Java documentation
-     * (https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Files.html)
-     * and Pattern / Matcher (https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html)
-     */
+  
     public void loadStoredMessages() {
         storedCount = 0;
         Path path = Paths.get(jsonFile);
