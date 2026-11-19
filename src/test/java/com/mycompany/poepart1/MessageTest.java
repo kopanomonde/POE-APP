@@ -22,8 +22,7 @@ public class MessageTest {
         message2.messageHash = message2.createMessageHash();
  
         Message.totalMessagesSent = 0;
-        Message.sentMessages.clear();
-        Message.storedMessages.clear();
+      Message.store =new MessageStore();
     }
  
     @Test
