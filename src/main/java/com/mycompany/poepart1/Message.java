@@ -36,14 +36,16 @@ public static Scanner input = new Scanner(System.in);
    this.messageID=generateMessageID();
    this.messageHash=createMessageHash();
    }
-   public String generateMessageID(){
-       Random random =new Random();
-       StringBuilder sb = new StringBuilder ();
-       for (int count = 0; count <10;count++){
-           sb.append(random.nextInt(10));
-       }
-       return sb.toString();
-   }
+   
+    public String generateMessageID() {
+        Random random = new Random();
+        long number = (long) (random.nextDouble() * 10000000000L);
+        return String.format("%010d", number);
+    }
+
+    public String messageIDStatus() {
+        return "Message ID generated: " + messageID;
+    }
    public boolean checkMessageID(){
        return  messageID != null &&  messageID.length()<=10;
    }
@@ -67,10 +69,7 @@ public static Scanner input = new Scanner(System.in);
         String last = words[words.length - 1].replaceAll("[^A-Za-z0-9]", "");
         String prefix = messageID.substring(0, 2);
         return (prefix + ":" + messageNumber + ":" + first + last).toUpperCase();
-    }
-       public String messageIDStatus() {
-    return "Message ID generated: " + messageID;
-}
+       }
 
 public String sentMessage() {
     int choice = 0;
@@ -129,7 +128,7 @@ public String sentMessage() {
     public static int returnTotalMessages() {
         return totalMessagesSent;
     }
-       public void storeMessage() {
+      public void storeMessage() {
         storedMessages.add(this);
         StringBuilder json = new StringBuilder("[\n");
         for (int count = 0; count < storedMessages.size(); count++) {
@@ -148,8 +147,9 @@ public String sentMessage() {
             System.out.println("Could not save the message: " + e.getMessage());
         }
     }
- 
+
+    // puts a backslash before quotes and backslashes so the JSON stays valid
     private static String escape(String text) {
         return text.replace("\\", "\\\\").replace("\"", "\\\"");
-    } 
-}
+    }
+}  
